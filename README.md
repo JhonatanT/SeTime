@@ -15,16 +15,16 @@ intervalo de 30 min para cada cliente
 
 ANOTAÇÕES DAS BIBLIOTECAS USADAS:
 
-yarn add typeorm reflect-metadata nome do banco = para instalar o bd no projeto
-yarn typeorm migration:create -n nomedamigration = para criar migration
-yarn add express-async-errors biblioteca capaz de lidar com erros assincronos 
-reverter e executar migration
-yarn typeorm migration:revert
-yarn typeorm migration:run
+-yarn add typeorm reflect-metadata nome do banco = para instalar o bd no projeto
+-yarn typeorm migration:create -n nomedamigration = para criar migration
+-yarn add express-async-errors biblioteca capaz de lidar com erros assincronos 
+-reverter e executar migration
+-yarn typeorm migration:revert
+-yarn typeorm migration:run
 
-criar entidade
-yarn typeorm entity:create -n nomedaentity
+-criar entidade
+-yarn typeorm entity:create -n nomedaentity
 
-biblioteca para criptografar as senhas
-yarn add bcryptjs
-yarn add @types/bcryptjs -D
+-biblioteca para criptografar as senhas
+-yarn add bcryptjs
+-yarn add @types/bcryptjs -D
