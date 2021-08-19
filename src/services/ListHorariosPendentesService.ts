@@ -2,7 +2,7 @@ import { getCustomRepository } from "typeorm";
 import { HorariosRepositories } from "../repositories/HorariosRepositories"
 import { classToPlain } from "class-transformer"
 
-class ListHorarioAllService {
+class ListHorariosPendentesService {
     async execute() {
 
         //instaciando a classe repositories para poder acessar a tabela de horario
@@ -16,4 +16,4 @@ class ListHorarioAllService {
         return classToPlain(HorAll);
     }
 }
-export { ListHorarioAllService }
+export { ListHorariosPendentesService }

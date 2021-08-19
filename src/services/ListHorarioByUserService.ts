@@ -13,7 +13,6 @@ class ListHorarioByUserService {
                 FK_ID_usu: user_id
             }
         });
-
         return Hor_ByID;
     }
 }

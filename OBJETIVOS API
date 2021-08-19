@@ -1,0 +1,42 @@
+-Cadastro de Clientes
+	-ID Usuario
+	-Usuario
+	-Senha
+
+-Cadastro de Horario
+	-ID_horario
+	-ID usuario
+	-nome_cliente
+	-descricao_pedido
+	-preco
+	-data_pedido
+	-horario
+	-troco
+
+-Autenticação de usuario
+	-Gerar token JWT
+	-Validar usuario logado nas rotas necessarias
+ ^
+ |
+ |
+ OK
+
+-Listagem de Horarios marcados Pendentes OK
+
+-Listagem de Horarios concluidos OK
+
+-apagar dados por id da tabela tb_horarios OK
+
+-Listar detalhes de cada horario por id OK
+
+-Validar somente Horarios permitidos de 30 em 30 minutos para cada cliente back end ou front?
+
+
+
+Sexo só masculino FRONT
+Nome obrigatorio BACK E FRONT
+qualquer idade FRONT
+a pessoa pode marcar qualquer hora para o proximo dia FRONT E BACK
+Opcional para quem quer colocar a quantidade de troco de que precisa FRONT 
+
+

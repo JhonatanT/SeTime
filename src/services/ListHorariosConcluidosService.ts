@@ -1,7 +1,7 @@
 import { getCustomRepository } from "typeorm"
 import { HistoricoRepositories } from "../repositories/HistoricoRepositories";
 
-class ListHistoricoAllServices {
+class ListHorariosConcluidosService {
     async execute() {
 
         //instaciando a classe repositories para poder acessar a tabela de historico 
@@ -14,4 +14,4 @@ class ListHistoricoAllServices {
 
     }
 }
-export { ListHistoricoAllServices }
+export { ListHorariosConcluidosService }
