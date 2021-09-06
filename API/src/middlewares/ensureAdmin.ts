@@ -6,7 +6,6 @@ export async function ensureAdmin(request: Request, response: Response, next: Ne
 
     //recuperando o user_id que criamos no ensureAuthenticated, pelo request para conseguir recuperar se é admin ou n
     const { user_id } = request;
-    console.log(user_id);
 
     //instaciando a classe repositories para poder acessar a tabela de usuario
     const userRespositories = getCustomRepository(UsersRepositories);

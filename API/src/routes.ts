@@ -12,6 +12,8 @@ import { ListHorarioAllController } from "./controllers/ListHorarioAllController
 import { ListUsersController } from "./controllers/ListUsersController";
 import { ApagaHorarioController } from "./controllers/ApagaHorarioController";
 import { ListHorarioByIDController } from "./controllers/ListHorarioByIDController";
+import { ListUserControllerById } from "./controllers/ListUserControllerById";
+
 
 const router = Router();
 
@@ -27,25 +29,30 @@ const listUsersController = new ListUsersController();
 const apagaHorarioController = new ApagaHorarioController();
 const listHorarioByIDController = new ListHorarioByIDController();
 
+const listUserControllerById = new ListUserControllerById();
+
+
+
+
 //ensureAdmin é o middlewares que faz a autenticação para ver se o user é admin ou não
 //ensureAuthenticated é o middlewares que faz a autenticação para ver se o usuario esta logado
 
 //POSTS
 router.post("/users", createUserController.handle);
 router.post("/login", authenticateUserService.handle);
-router.post("/historico", ensureAuthenticated, ensureAdmin, createHistoricoController.handle);
-router.post("/horario", ensureAuthenticated, createHorarioController.handle); // não precisa ser admin tirar
+router.post("/historico", ensureAuthenticated, ensureAdmin, createHistoricoController.handle);//PRECISA DE AUTENTICAÇÃO e ensureAdmin
+router.post("/horario", ensureAuthenticated, createHorarioController.handle);
+
 //GETS
-router.get("/users/Concluidos", ensureAuthenticated, listHorariosConcluidosController.handle);
-router.get("/users/Pendentes", ensureAuthenticated, listHorarioAllController.handle);
+router.get("/users/Concluidos", ensureAuthenticated, ensureAdmin, listHorariosConcluidosController.handle);//PRECISA DE AUTENTICAÇÃO
+router.get("/users/Pendentes", ensureAuthenticated, ensureAdmin, listHorarioAllController.handle);//PRECISA DE AUTENTICAÇÃO
 router.get("/users/Historicobyid", ensureAuthenticated, listHistoricoByUserController.handle);
 router.get("/users/Horariobyid", ensureAuthenticated, listHorarioByUserController.handle);
-router.get("/users/ListUserAll", ensureAuthenticated, listUsersController.handle);
-router.get("/users/HorarioSelected", ensureAuthenticated, listHorarioByIDController.handle);
+router.get("/users/ListUserAll", ensureAuthenticated, ensureAdmin, listUsersController.handle);
+router.get("/users/HorarioSelected", ensureAuthenticated, listHorarioByIDController.handle);//PRECISA DE AUTENTICAÇÃO
+router.get("/users/ListUserbyId", ensureAuthenticated, listUserControllerById.handle);//PRECISA DE AUTENTICAÇÃO
+
 //DELETES
-router.delete("/users/apagaHorario", ensureAuthenticated, apagaHorarioController.handle);
-
-
-
+router.delete("/users/apagaHorario", ensureAuthenticated, ensureAdmin, apagaHorarioController.handle);//PRECISA DE AUTENTICAÇÃO
 
 export { router }

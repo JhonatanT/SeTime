@@ -39,12 +39,12 @@ class CreateHorarioService {
 
         //pesquisando se na tabela de horario ja existe um nome cliente ja cadastrado
         const horarioAlreadyExists = await horariosRepositories.findOne({
-            nome_cliente
+            FK_ID_usu
         });
 
         //caso exista retorna esse throw
         if (horarioAlreadyExists) {
-            throw new Error("Already Exist");
+            throw new Error("Você já tem um horario Cadastrado");
         }
 
         //criando uma instacia do objeto para inserir no bd

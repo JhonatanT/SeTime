@@ -1,0 +1,190 @@
+.pageauth {
+    display: flex;
+    align-items: stretch;
+    height: 100vh;
+  
+    aside {
+      flex: 7;
+  
+      background: #835afd;
+      color: #FFF;
+  
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      
+      padding: 120px 80px;
+  
+      img {
+        max-width: 320px;
+      }
+  
+      strong {
+        font: 700 36px 'Poppins', sans-serif;
+        line-height: 42px;
+        margin-top: 16px;
+      }
+  
+      p {
+        font-size: 24px;
+        line-height: 32px;
+        margin-top: 16px;
+        color: #f8f8f8;
+      }
+    }
+  
+    main {
+      flex: 8;
+  
+      padding: 0 32px;
+  
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  
+    .maincontent {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      max-width: 320px;
+      align-items: stretch;
+      text-align: center;
+      margin-bottom: 15rem;
+  
+      > img {
+        align-self: center;
+        margin-bottom: -1rem;
+      }
+  
+     
+    }
+  
+    .separator {
+      font-size: 17px;
+      color: #a8a8b3;
+  
+      margin: 32px 0;
+      display: flex;
+      align-items: center;
+  
+      &::before {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background: #a8a8b3;
+        margin-right: 16px;
+      }
+  
+      &::after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background: #a8a8b3;
+        margin-left: 16px;
+      }
+    }
+
+    input{
+      height: 50px;
+      border-radius: 8px;
+      padding: 0 16px;
+      background: var(--white);
+      border: 1px solid #a8a8b3;
+      &::before{
+          content: "";
+          width: 4px;
+          height: 4px;
+          border-radius: 2px;
+          background: #ddd;
+          position: absolute;
+          left: 0;
+          top: 50%;
+          transform: translate(-50%, -50%); 
+      }
+  }
+
+ 
+
+  
+
+
+  @import url(https://fonts.googleapis.com/css?family=Raleway:300);
+
+// Mixin below used to center the button. If using in production, remove the mixin and add position relative or absolute to button.
+
+@mixin center($extend: true) {
+    @if $extend {
+        @extend %center;
+    } @else {
+   
+    }
+}
+
+%center {
+    @include center($extend: false);
+}
+
+body{
+  background: #111;
+}
+
+button{
+  @include center;
+
+  width: 200px;
+  height: 60px;
+  border: 0;
+  font-size: 18px;
+  border-radius: 4px;
+  font-family: 'Raleway', sans-serif;
+  transition: .6s;
+  overflow: hidden;
+  &:focus{
+    outline: 0;
+  }
+  &:before{
+    content: '';
+    display: block;
+    position: absolute;
+    background: rgba(255,255,255,0.5);
+    width: 60px;
+    height: 100%;
+    left: 0;
+    top: 0;
+    opacity: .5;
+    filter: blur(30px);
+    transform: translateX(-100px)  skewX(-15deg);
+  }
+  &:after{
+    content: '';
+    display: block;
+    position: absolute;
+    background: rgba(255,255,255,0.2);
+    width: 30px;
+    height: 100%;
+    left: 30px;
+    top: 0;
+    opacity: 0;
+    filter: blur(5px);
+    transform: translateX(-100px) skewX(-15deg);
+  }
+  &:hover{
+    background: #ddd;
+    cursor: pointer;
+    &:before{
+      transform: translateX(300px)  skewX(-15deg);  
+      opacity: 0.6;
+      transition: .7s;
+    }
+    &:after{
+      transform: translateX(300px) skewX(-15deg);  
+      opacity: 1;
+      transition: .7s;
+    }
+  }
+}
+
+
+}
+

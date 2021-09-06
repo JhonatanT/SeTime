@@ -34,13 +34,23 @@ class AuthenticateUserService {
 
         //gerando o token
         const token = sign({
+            id: usuario_E.id,
             usuario: usuario_E.usuario,
+            admin: usuario_E.admin
         }, "c094a4ad8a548c26dd6957247edde900", {//assinatura da criptografia
             subject: usuario_E.id,
             expiresIn: "1d"//tempo de vida do token
         });
 
-        return token;
+        const user = {
+            id: usuario_E.id,
+            usuario: usuario_E.usuario,
+            admin: usuario_E.admin
+        }
+
+        const data = { token, user }
+
+        return data;
     }
 
 }
