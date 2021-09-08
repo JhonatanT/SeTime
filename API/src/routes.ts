@@ -53,6 +53,6 @@ router.get("/users/HorarioSelected", ensureAuthenticated, listHorarioByIDControl
 router.get("/users/ListUserbyId", ensureAuthenticated, listUserControllerById.handle);//PRECISA DE AUTENTICAÇÃO
 
 //DELETES
-router.delete("/users/apagaHorario", ensureAuthenticated, ensureAdmin, apagaHorarioController.handle);//PRECISA DE AUTENTICAÇÃO
+router.delete("/users/apagaHorario", ensureAuthenticated, apagaHorarioController.handle);//PRECISA DE AUTENTICAÇÃO
 
 export { router }

@@ -3,6 +3,7 @@ import './home.module.scss'
 import { useContext, FormEvent } from 'react'
 import { useForm } from 'react-hook-form'
 import { AuthContext } from '../../contexts/AuthContext'
+import Swal from 'sweetalert2'
 
 export default function Cadastrar() {
 
@@ -12,11 +13,39 @@ export default function Cadastrar() {
 
 
   async function handleSign(data) {
+    if (data.usuario == '' || data.senha == '' || data.senha2 == '') {
+      return (
+        Swal.fire(
+          'Todos os campos DEVEM SER PREENCHIDOS',
+          'Algum campo esta vazio',
+          'error'
+        )
+      )
+    }
+    try {
+      await Cad(data);
+    }
+    catch (e) {
+      if (e.request.response == '{"error":"User already exists"}') {
+        return (
+          Swal.fire(
+            'Usuario já existe',
+            'O usuario que tentou se cadastrar ja existe, é um usuario por pessoa',
+            'error'
+          )
+        )
+      }
+      else {
+        return (
+          Swal.fire(
+            'ALGO DEU ERRADO',
+            'Algo deu errado, aperte F5 ou atualize a pagina, se o problema persistir entre em contato com um ADMIN',
+            'error'
+          )
+        )
+      }
 
-
-    //lugar onde mostra se falhou a autenticação ou n
-    await Cad(data);
-
+    }
   }
 
   return (

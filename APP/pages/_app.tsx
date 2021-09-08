@@ -15,8 +15,9 @@ function MyApp({ Component, pageProps }) {
     <PlayerContextProvider>
       <div className={styles.wrapper}>
         <main>
-          <Header {...pageProps} />
           <AuthProvider>
+            <Header {...pageProps} />
+
             <CadProvider>
               <Component {...pageProps} />
             </CadProvider>

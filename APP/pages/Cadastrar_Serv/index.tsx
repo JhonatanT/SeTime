@@ -8,16 +8,12 @@ import { CadProvider, Cad_servContext } from "../../contexts/Cad_servContext";
 import id from 'date-fns/esm/locale/id/index.js'
 
 type user = {
-  usuario: {
-    user: {
-      id: string;
-      usuario: string;
-    }
-  }
+  id: string;
+  usuario: string;
 }
 
 type CadastroProps = {
-  usuario: user[]
+  usuario: user
 }
 
 
@@ -28,12 +24,14 @@ export default function Cadastrar_Serv(CadastroProps) {
 
 
   async function handleSign(data) {
-    //lugar onde mostra se falhou a autenticação ou n
-    await Cadserv(data)
+    try {
+      await Cadserv(data)
+    }
+    catch (e) {
+      console.log(e.response)
+    }
 
   }
-
-
 
   return (
 
@@ -66,6 +64,7 @@ export default function Cadastrar_Serv(CadastroProps) {
             <input type="date"
               {...register('data_pedido')}
               placeholder="dia"
+              required
             />
 
             <br />
@@ -75,6 +74,7 @@ export default function Cadastrar_Serv(CadastroProps) {
               {...register('horario')}
               placeholder="Horario"
             />
+
 
             <br />
             <br />
@@ -87,12 +87,12 @@ export default function Cadastrar_Serv(CadastroProps) {
             />
 
             <div className={styles.input_inv}>
-              <input type="text"
+              <input type="text" onChange
                 {...register('nome_cliente')}
                 placeholder="nome_cliente"
                 value={CadastroProps.user.usuario}
               />
-              <input type="text"
+              <input type="text" onChange
                 {...register('FK_ID_usu')}
                 placeholder="id_usu"
                 value={CadastroProps.user.id}

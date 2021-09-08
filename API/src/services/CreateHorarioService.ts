@@ -1,3 +1,5 @@
+import { format } from "date-fns";
+import { ptBR } from "date-fns/locale";
 import { getCustomRepository } from "typeorm"
 import { HorariosRepositories } from "../repositories/HorariosRepositories"
 
@@ -45,6 +47,29 @@ class CreateHorarioService {
         //caso exista retorna esse throw
         if (horarioAlreadyExists) {
             throw new Error("Você já tem um horario Cadastrado");
+        }
+
+        const horario_HOR = await horariosRepositories.find({
+            horario
+        });
+
+
+        for (let i = 0; i < horario_HOR.length; i++) {
+            const data_cad = format(horario_HOR[i].data_pedido, 'y-MM-dd');
+
+            if (horario_HOR[i].horario && data_cad) {
+                throw new Error('horario agendado')
+            }
+        }
+
+        const currentDate = format(new Date(), 'y-MM-dd', {
+            locale: ptBR,
+        });
+
+        const data_hoje = currentDate
+
+        if (String(data_pedido) < data_hoje) {
+            throw new Error('data invalida')
         }
 
         //criando uma instacia do objeto para inserir no bd

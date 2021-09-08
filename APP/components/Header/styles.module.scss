@@ -27,4 +27,25 @@
     .inv0{
         display: 0;
     }
+    button {
+            
+        width: 2.5rem;
+        height: 2.5rem;
+        background: var(--white);
+        border: 1px solid var(--gray-100);
+        border-radius: 0.675rem;
+        font-size: 0;
+        margin-left: 2rem;
+
+        transition: filter 0.2s;
+
+        img{
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+
+        &:hover{
+            filter: brightness(0.95) ;
+        }
+}
 }

@@ -1,7 +1,7 @@
 //Classe que faz a atenticação do usuario
 import { createContext, useState } from "react"
 import { api } from "../services/api";
-import { setCookie, parseCookies } from 'nookies'
+import { setCookie, parseCookies, destroyCookie } from 'nookies'
 import Router from 'next/router'
 import { useEffect } from "react";
 import Swal from 'sweetalert2'
@@ -22,11 +22,14 @@ type CadType = {
     senha2: string;
 }
 
+
+
 type AuthContextType = {
     isAthenticated: boolean;
     user: User;
+    Sair: () => Promise<void>;
     Logar: (data: LogarType) => Promise<void>;
-    Cad: (data: LogarType) => Promise<void>;
+    Cad: (data: CadType) => Promise<void>;
 }
 
 
@@ -103,25 +106,17 @@ export function AuthProvider({ children }) {
                 Router.push('/ServMarc',);
             }
         }
-
-
-
     }
 
 
     async function Cad({ usuario, senha, senha2 }: CadType) {
 
-        console.log(usuario, senha, senha2);
-
         if (senha == senha2) {
-            const datas = {
+            const { data } = await api.post('/users', {
                 usuario: usuario,
                 senha: senha,
                 admin: false
-            }
-            const Cadas = api.post('/users', datas);
-
-            console.log(Cadas)
+            });
 
             Swal.fire({
                 position: 'center',
@@ -145,11 +140,28 @@ export function AuthProvider({ children }) {
     }
 
 
+    async function Sair() {
 
-
-
+        Swal.fire({
+            title: 'Deseja sair?',
+            text: "Sair da sua conta?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sim'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                destroyCookie(undefined, 'SetTimerota');
+                destroyCookie(undefined, 'SetTimeid');
+                destroyCookie(undefined, 'SetTimetoken');
+                destroyCookie(undefined, 'SetTimeadm');
+                Router.push('/');
+            }
+        });
+    }
     return (
-        <AuthContext.Provider value={{ user, isAthenticated, Logar, Cad }}>
+        <AuthContext.Provider value={{ user, Sair, isAthenticated, Logar, Cad }}>
             {children}
         </AuthContext.Provider>
     )

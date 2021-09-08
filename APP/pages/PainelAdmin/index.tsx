@@ -7,7 +7,6 @@ import styles from './home.module.scss'
 import { convertDescricao } from '../../components/utils/convertDescricao'
 import { useContext } from 'react'
 import { PlayerContext, PlayerContextProvider } from '../../contexts/PlayerContext'
-import { Player } from "../../components/Player/Index"
 import { AuthContext } from '../../contexts/AuthContext'
 import { parseCookies } from 'nookies'
 import { getAPIClient } from '../../services/axios'
@@ -67,15 +66,13 @@ export default function PainelAdmin({ latestClients, AllClients }: HomeProps) {
 
     <PlayerContextProvider>
 
-
       <div className={styles.homepage}>
 
-
         <section className={styles.latestClients}>
+          {/* CASO PRECISE EXIBIR O NOME "<p className={styles.separator}>Bem vindo: {user?.usuario}</p>"*/}
+
 
           <h2> Últimos Clientes Agendados</h2>
-
-          <p>usuario logado {user?.usuario} </p>
 
           <ul>
             {latestClients.map(C_pendentes => {
@@ -95,6 +92,7 @@ export default function PainelAdmin({ latestClients, AllClients }: HomeProps) {
                     <span>{C_pendentes.horario}</span>
 
                   </div>
+
                   <button type="button" onClick={() => ConDel(
                     C_pendentes.id,
                     C_pendentes.FK_ID_usu,
@@ -103,7 +101,7 @@ export default function PainelAdmin({ latestClients, AllClients }: HomeProps) {
                     C_pendentes.preco,
                     C_pendentes.data_pedido,
                     C_pendentes.horario,
-                    C_pendentes.troco, true, 1)}>
+                    C_pendentes.troco, true, 1, 'admin')}>
                     <Image width={24} height={24} objectFit="cover" src="/check.svg" alt="Pedido Concluido" />
                   </button>
 
@@ -114,10 +112,9 @@ export default function PainelAdmin({ latestClients, AllClients }: HomeProps) {
                     C_pendentes.preco,
                     C_pendentes.data_pedido,
                     C_pendentes.horario,
-                    C_pendentes.troco, false, 0)}>
+                    C_pendentes.troco, false, 0, 'admin')}>
                     <Image width={24} height={24} objectFit="cover" src="/delete.svg" alt="Cancelar Pedido" />
                   </button>
-
                 </li>
               )
             })}
@@ -162,7 +159,7 @@ export default function PainelAdmin({ latestClients, AllClients }: HomeProps) {
                         cliente.preco,
                         cliente.data_pedido,
                         cliente.horario,
-                        cliente.troco, true, 1)}>
+                        cliente.troco, true, 1, 'admin')}>
                         <Image width={24} height={24} objectFit="cover" src="/check.svg" alt="Pedido Concluido" />
                       </button>
 
@@ -177,7 +174,7 @@ export default function PainelAdmin({ latestClients, AllClients }: HomeProps) {
                         cliente.preco,
                         cliente.data_pedido,
                         cliente.horario,
-                        cliente.troco, false, 0)}>
+                        cliente.troco, false, 0, 'admin')}>
                         <Image width={24} height={24} objectFit="cover" src="/delete.svg" alt="Cancelar Pedido" />
                       </button>
 

@@ -1,47 +1,55 @@
-import { Hidden } from '@material-ui/core';
+
 import format from 'date-fns/format'
 import ptBR from 'date-fns/locale/pt-BR';
+import { response } from 'express';
 import { parseCookies } from 'nookies';
 import { useContext } from 'react';
-import { AuthContext } from '../../contexts/AuthContext';
+import { AuthContext, PegaUsu } from '../../contexts/AuthContext';
 import styles from './styles.module.scss';
-import { GetStaticProps, GetServerSideProps } from 'next'
+import Image from 'next/image'
 
-type HeaderProps = {
-    token: string;
-}
 
-export function Header({ token }: HeaderProps) {
-    console.log('ARRUMAR O HEADER, FAZER APARECER O USUARIO');
-    console.log('DESLOGAR, VERIFICAR SE NO LOGIN,CAD User, CAD Serv estão com todos os campos preechido')
+export function Header() {
+
+    const { ['SetTimeid']: id } = parseCookies();
+
     const currentDate = format(new Date(), 'EEEEEE , d MMMM', {
         locale: ptBR,
     });//formatando a data de hoje utilizando a biblioteca date-fns
 
+    if (id) {
+        const { user, Sair } = useContext(AuthContext);
 
-    return (
-        <header className={styles.headerContainer}>
-            <img src="/logo.png" alt="Salão" />
+        return (
 
-            <p>Salão Laerte</p>
+            <header className={styles.headerContainer}>
+                <img src="/logo.png" alt="Salão" />
 
-            <h3 className={styles.inv0}>Bem Vindo{token}</h3>
+                <p>Salão Laerte</p>
 
-            <span>{currentDate}</span>
+                <span>{currentDate}</span>
 
-        </header>
-    );
-}
-export async function getServerSideProps(ctx) {
+                <p>Sair</p>
+                <button type="button" onClick={() => Sair()}>
+                    <Image width={24} height={24} objectFit="cover" src="/sair.png" alt="Sair" />
+                </button>
 
-    const { ['SetTimeid']: tokens } = parseCookies(ctx);
-    console.log(tokens)
-
-    return {
-        //returnar sempre props, pois a função ja espera um return props
-        props: {
-            token: tokens,
-        }
-
+            </header>
+        );
     }
+    else {
+        return (
+            <header className={styles.headerContainer}>
+                <img src="/logo.png" alt="Salão" />
+
+                <p>Salão Laerte</p>
+
+                <span>{currentDate}</span>
+
+            </header>
+        );
+    }
+
+
+
 }

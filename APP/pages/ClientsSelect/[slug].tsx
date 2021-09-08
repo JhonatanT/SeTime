@@ -10,6 +10,7 @@ import { convertDescricao } from '../../components/utils/convertDescricao';
 import ptBR from 'date-fns/locale/pt-BR'
 import { URLSearchParams } from 'url';
 import Link from 'next/link'
+import { parseCookies } from 'nookies';
 
 
 //seria o msm q o interface o resultado é o msm

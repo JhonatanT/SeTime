@@ -58,11 +58,11 @@ export function Player() {
                             <input disabled type="text" placeholder={client.troco} /><br /><br />
                             <div className={styles.buttons}>
 
-                                <button type="button" onClick={() => ConDel(client.id, client.FK_ID_usu, client.nome_cliente, client.descricao_pedido, client.preco, client.data_pedido, client.horario, client.troco, true, 1)}>
+                                <button type="button" onClick={() => ConDel(client.id, client.FK_ID_usu, client.nome_cliente, client.descricao_pedido, client.preco, client.data_pedido, client.horario, client.troco, true, 1, 'admin')}>
                                     <Image width={24} height={24} objectFit="cover" src="/check.svg" alt="Pedido Concluido" />
                                 </button>
 
-                                <button type="button" onClick={() => ConDel(client.id, client.FK_ID_usu, client.nome_cliente, client.descricao_pedido, client.preco, client.data_pedido, client.horario, client.troco, false, 0)}>
+                                <button type="button" onClick={() => ConDel(client.id, client.FK_ID_usu, client.nome_cliente, client.descricao_pedido, client.preco, client.data_pedido, client.horario, client.troco, false, 0, 'admin')}>
                                     <Image width={24} height={24} objectFit="cover" src="/delete.svg" alt="Cancelar Pedido" />
                                 </button>
 
@@ -80,13 +80,6 @@ export function Player() {
         );
     }
     else {
-        if (!value) {
-            return (
-                <div>
-
-
-                </div>
-            );
-        }
+        return ('');
     }
 }

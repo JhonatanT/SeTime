@@ -3,6 +3,8 @@ import { createContext, useState, ReactNode } from "react";
 import { api } from "../services/api";
 import Swal from 'sweetalert2'
 import { getAPIClient } from "../services/axios";
+import { parseCookies, setCookie } from "nookies";
+import Router from "next/router";
 
 type Client = {
     id: string;
@@ -43,7 +45,7 @@ type PlayerContextData = {
         horario: string,
         troco: string,
         concluido,
-        opcao: Number,) => void;
+        opcao: Number, tipo: string) => void;
 
 }
 
@@ -70,7 +72,8 @@ export function PlayerContextProvider({ children }: PlayerContextProviderProps) 
 
     //essa função faz o concluir e concelar da API, ela recebe os dados que precisa por parametro diretamente da index pages e index Player
     //virifica qual opção que vem se for 1 conclui o pedido se n cancela
-    function ConDel(ID_horario, FK_ID_usu, nome_cliente, descricao_pedido, preco, data_pedido, horario, troco, concluido, opcao) {
+    function ConDel(ID_horario, FK_ID_usu, nome_cliente, descricao_pedido, preco, data_pedido, horario, troco, concluido, opcao, tipo) {
+
 
         if (opcao == 1) {
             Swal.fire({
@@ -108,9 +111,12 @@ export function PlayerContextProvider({ children }: PlayerContextProviderProps) 
                         'Esse Pedido foi concluido',
                         'success'
                     )
-                    setTimeout(() => {
-                        location.reload();
-                    }, 3000);
+                    if (tipo == 'admin') {
+                        setTimeout(() => {
+                            location.reload();
+                        }, 3000);
+                    }
+
                 }
             });
         }
@@ -131,15 +137,29 @@ export function PlayerContextProvider({ children }: PlayerContextProviderProps) 
                             id: ID_horario
                         }
                     });
-                    Swal.fire(
 
-                        'Deletado',
-                        'Esse Pedido foi deletado',
-                        'success'
-                    )
-                    setTimeout(() => {
-                        location.reload();
-                    }, 3000);
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Esse Pedido foi cancelado',
+                        showConfirmButton: false,
+                        timer: 3001
+                    })
+
+                    if (tipo == 'client') {
+                        setCookie(undefined, 'SetTimerota', '/Cadastrar_Serv', {
+                            maxAge: 30 * 30 * 1,//30min
+                        })
+                        setTimeout(() => {
+                            Router.push('/Cadastrar_Serv');
+                        }, 3000);
+                    }
+                    else {
+                        setTimeout(() => {
+                            location.reload();
+                        }, 3000);
+                    }
+
                 }
             })
 

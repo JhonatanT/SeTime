@@ -7,6 +7,9 @@ import { convertFormatPreco } from '../../components/utils/convertFormatPreco'
 import { format, parseISO } from 'date-fns';
 import { ptBR } from 'date-fns/locale'
 import { PlayerContext } from '../../contexts/PlayerContext'
+import { destroyCookie, parseCookies } from 'nookies'
+import Router from 'next/router'
+import { api } from '../../services/api'
 type Cliente_Marcado = {
 
   id: string;
@@ -35,7 +38,6 @@ type HomeProps = {
 }
 
 export default function Cadastrar_Serv({ Clients }: HomeProps) {
-  console.log(Clients)
   const { ConDel, SelClient } = useContext(PlayerContext);
 
   return (
@@ -75,7 +77,7 @@ export default function Cadastrar_Serv({ Clients }: HomeProps) {
                   Clients.Precos_convert,
                   Clients.DT_pedido,
                   Clients.horario,
-                  Clients.troco, false, 0)}>
+                  Clients.troco, false, 0, 'client')}>
                   <p>Cancelar Pedido </p>
                 </button>
               </header>
@@ -92,6 +94,22 @@ export default function Cadastrar_Serv({ Clients }: HomeProps) {
 }
 
 export async function getServerSideProps(ctx) {
+
+  const { ['SetTimetoken']: token } = parseCookies(ctx);
+
+
+  if (!token) {
+    destroyCookie(undefined, 'SetTimerota');
+    destroyCookie(undefined, 'SetTimeid');
+    destroyCookie(undefined, 'SetTimetoken');
+    destroyCookie(undefined, 'SetTimeadm');
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false
+      }
+    }
+  }
 
   const apiClient = getAPIClient(ctx);
 

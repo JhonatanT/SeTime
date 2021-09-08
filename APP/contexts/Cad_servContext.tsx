@@ -1,4 +1,5 @@
 import Router from 'next/router'
+import { setCookie } from 'nookies';
 import { createContext, ReactNode } from "react";
 import Swal from "sweetalert2";
 import { api } from "../services/api";
@@ -45,7 +46,7 @@ export function CadProvider({ children }) {
         }
 
 
-        const data = {
+        const datas = {
             FK_ID_usu: FK_ID_usu,
             nome_cliente: nome_cliente,
             descricao_pedido: descricao_pedido,
@@ -54,11 +55,8 @@ export function CadProvider({ children }) {
             horario: horario,
             troco: troco
         }
-        console.log(data)
         try {
-            const Cadas = api.post('/horario', data);
-
-            console.log(Cadas)
+            const { data } = await api.post('/horario', datas);
 
             Swal.fire({
                 position: 'center',
@@ -68,13 +66,37 @@ export function CadProvider({ children }) {
                 timer: 2000
             })
 
+            setCookie(undefined, 'SetTimerota', '/ServMarc', {
+                maxAge: 30 * 30 * 1,//30min
+            })
+
             setTimeout(() => {
-                Router.push('/Cadastrar_Serv');
+                Router.push('/ServMarc');
             }, 2000);
         }
         catch (err) {
-
-            console.log(err);
+            console.log(err.request.response)
+            if (err.request.response == '{"error":"data invalida"}') {
+                Swal.fire(
+                    'Data Inválida',
+                    'Somente data de hoje para frente',
+                    'error'
+                )
+            }
+            else if (err.request.response == '{"error":"horario agendado"}') {
+                Swal.fire(
+                    'Horário já está ocupado',
+                    'Escolha um horário de 10 ou mais minutos para frente',
+                    'error'
+                )
+            }
+            else {
+                Swal.fire(
+                    'ALGO DEU ERRADO',
+                    'Algo deu errado, aperte F5 ou atualize a pagina, se o problema persistir entre em contato com um ADMIN',
+                    'error'
+                )
+            }
         }
 
     }

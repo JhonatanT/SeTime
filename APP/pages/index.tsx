@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form'
 import { AuthContext } from '../contexts/AuthContext'
 import { parseCookies, destroyCookie } from 'nookies'
 import Router from 'next/router'
+import Swal from 'sweetalert2'
 
 export default function Home() {
   const { register, handleSubmit } = useForm();
@@ -14,9 +15,44 @@ export default function Home() {
 
   async function handleSign(data) {
 
-    //lugar onde mostra se falhou a autenticação ou n
-    await Logar(data)
 
+    if (data.usuario == '' || data.senha == '') {
+
+      return (
+        Swal.fire(
+          'Todos os campos DEVEM SER PREENCHIDOS',
+          'Algum campo esta vazio',
+          'error'
+        )
+      )
+
+    }
+
+    //lugar onde mostra se falhou a autenticação ou n
+    try {
+      await Logar(data)
+    }
+    catch (e) {
+      if (e.request.response == '{"error":"Usuario/Senha Incorrect"}') {
+        return (
+          Swal.fire(
+            'Usuario ou senha INCORRETOS',
+            'O usuario ou senha digitado estão(a) incorretos',
+            'error'
+          )
+        )
+      }
+      else {
+        return (
+          Swal.fire(
+            'ALGO DEU ERRADO',
+            'Algo deu errado, aperte F5 ou atualize a pagina, se o problema persistir entre em contato com um ADMIN',
+            'error'
+          )
+        )
+      }
+
+    };
   }
 
   const { ['SetTimerota']: rota } = parseCookies();
@@ -36,7 +72,7 @@ export default function Home() {
     )
   }
   else {
-
+    destroyCookie(undefined, 'SetTimerota');
     return (
       <div className={styles.pageauth}>
 
@@ -66,9 +102,7 @@ export default function Home() {
           </div>
         </main>
       </div>
-
     )
-
   }
 }
 
