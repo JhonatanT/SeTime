@@ -6,7 +6,7 @@
   #  3- Loga no sistema, 
   #  4- Marca um horario preenchendo os dados necessarios, conforme as imagens a baixo:
  
-# No caso eu criei essa versão como se fosse para um salão de cabeleleiro!
+  No caso eu criei essa versão como se fosse para um salão de cabeleleiro!
 
 # Tela de Login
 ![tela_login](https://user-images.githubusercontent.com/36746073/175696113-cd3f3c5d-1376-45f3-9aa9-6843a55c7381.png)
