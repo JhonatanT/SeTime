@@ -1,4 +1,4 @@
-#Projeto de estudo: SeTime (Node.js, React.js e MySql )
+# Projeto de estudo: SeTime (Node.js, React.js e MySql )
   
   É um uma plataforma a qual foi desenvolvida para marcar horários de serviço ou seja:
     o usuario entra na plataforma, 
