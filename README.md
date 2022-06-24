@@ -3,7 +3,7 @@
   É um uma plataforma a qual foi desenvolvida para marcar horários de serviço ou seja:
   #  1- Usuario entra na plataforma, 
   #  2- Cria uma conta, 
-  #  3- Entra no sistema, 
+  #  3- Loga no sistema, 
   #  4- Marca um horario preenchendo os dados necessarios, conforme as imagens a baixo:
  
 # No caso eu criei essa versão como se fosse para um salão de cabeleleiro!
