@@ -33,3 +33,6 @@
 
 # Tela sair USER ADM | USER NORMAL
 ![SAIR](https://user-images.githubusercontent.com/36746073/175696380-da0ff985-d08c-47a7-9f68-e3e5620d4b26.png)
+
+# Para rodar a API e APP
+`yarn dev`
