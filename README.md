@@ -6,7 +6,7 @@
 # Executar Migration | MySql |
 `yarn typeorm migration:run`
 
-# Para rodar a API e APP
+# Para rodar API e APP
 `yarn dev`
   
   É um uma plataforma a qual foi desenvolvida para marcar horários de serviço ou seja:
