@@ -1,6 +1,6 @@
 # Projeto de estudo: SeTime (Node.js, React|Next.js e MySql )
 
-# Executar Migration | MySql |
+# Configuração BD
 `Alterar para suas informações do banco de dados no aquivo ./ormconfig.json`
 
 # Executar Migration | MySql |
